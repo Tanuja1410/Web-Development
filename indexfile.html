@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Experiments Index</title>
+  <style>
+    :root{--nav:#f7f8fa;--accent:#1976d2}
+    body{margin:0;font-family:Segoe UI,Arial,Helvetica,sans-serif;display:flex;height:100vh}
+    nav{width:300px;background:var(--nav);padding:18px;box-sizing:border-box;border-right:1px solid #e6e6e6;overflow:auto}
+    main{flex:1;display:flex;flex-direction:column}
+    h1{font-size:18px;margin:0 0 8px}
+    p.lead{margin:0 0 12px;color:#444;font-size:13px}
+    a.item{display:block;padding:8px 10px;margin:6px 0;color:#111;text-decoration:none;border-radius:6px}
+    a.item:hover{background:#e9eef8}
+    footer{padding:8px;border-top:1px solid #eee;background:#fafafa;font-size:13px}
+    #viewerWrap{flex:1;position:relative}
+    iframe#viewer{width:100%;height:100%;border:0}
+    .topbar{padding:10px 14px;border-bottom:1px solid #eee;background:#fff}
+    .topbar .title{font-weight:600}
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>Experiments (up to 11)</h1>
+    <p class="lead">Click an item to preview it. Push this folder to GitHub to publish via Pages.</p>
+    <div id="list">
+      <a class="item" href="#" data-src="Exp2 Webpage.html">Exp2 Webpage.html</a>
+      <a class="item" href="#" data-src="Exp3 Textformatting.html">Exp3 Textformatting.html</a>
+      <a class="item" href="#" data-src="Exp4 list.html">Exp4 list.html</a>
+      <a class="item" href="#" data-src="Exp5 Iamge.html">Exp5 Iamge.html</a>
+      <a class="item" href="#" data-src="exp6/exp 6/index.html">exp6 (index.html)</a>
+      <a class="item" href="#" data-src="Exp 7/index.html">Exp 7 (index.html)</a>
+      <a class="item" href="#" data-src="exp9employeereg.html">exp9employeereg.html</a>
+      <a class="item" href="#" data-src="exp10resume.html">exp10resume.html</a>
+      <a class="item" href="#" data-src="exp11XML.html">exp11XML.html</a>
+      <a class="item" href="#" data-src="exp 11 XML/student.xml">exp 11 XML/student.xml (XML)</a>
+      <a class="item" href="#" data-src="all_experiments.html">all_experiments.html (combined preview)</a>
+    </div>
+    <footer>
+      <div>Files included: HTML, CSS, images, XML/XSL kept in place.</div>
+    </footer>
+  </nav>
+
+  <main>
+    <div class="topbar"><span class="title">Preview</span></div>
+    <div id="viewerWrap"><iframe id="viewer" src="Exp2 Webpage.html" title="Experiment viewer"></iframe></div>
+  </main>
+
+  <script>
+    const list = document.getElementById('list');
+    const viewer = document.getElementById('viewer');
+
+    list.addEventListener('click', e => {
+      const a = e.target.closest('a[data-src]');
+      if (!a) return;
+      e.preventDefault();
+      const src = a.getAttribute('data-src');
+      viewer.src = src;
+    });
+  </script>
+</body>
+</html>
