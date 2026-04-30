@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee Registration</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #a574bb, #8748af);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px; /* Perfect width */
+            background: #ffffff;
+            padding: 35px 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #222;
+            font-size: 28px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full {
+            grid-column: span 2;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #4facfe;
+            outline: none;
+            box-shadow: 0 0 6px rgba(79,172,254,0.5);
+        }
+
+        .inline {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .inline label {
+            font-weight: normal;
+        }
+
+        .buttons {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        input[type="submit"], input[type="reset"] {
+            width: 48%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"] {
+            background: #4facfe;
+            color: white;
+        }
+
+        input[type="submit"]:hover {
+            background: #2b8cff;
+        }
+
+        input[type="reset"] {
+            background: #ff4d4d;
+            color: white;
+        }
+
+        input[type="reset"]:hover {
+            background: #cc0000;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            .full {
+                grid-column: span 1;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Employee Registration Form</h2>
+
+    <form>
+
+        <div>
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter name" required>
+        </div>
+
+        <div>
+            <label>Email</label>
+            <input type="email" placeholder="Enter email" required>
+        </div>
+
+        <div>
+            <label>Password</label>
+            <input type="password" required>
+        </div>
+
+        <div>
+            <label>Phone</label>
+            <input type="tel" pattern="[0-9]{10}" placeholder="10 digit number" required>
+        </div>
+
+        <div class="full">
+            <label>Gender</label>
+            <div class="inline">
+                <label><input type="radio" name="g"> Male</label>
+                <label><input type="radio" name="g"> Female</label>
+            </div>
+        </div>
+
+        <div>
+            <label>Department</label>
+            <select required>
+                <option value="">Select</option>
+                <option>HR</option>
+                <option>IT</option>
+                <option>Finance</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Date of Birth</label>
+            <input type="date" required>
+        </div>
+
+        <div class="full">
+            <label>Address</label>
+            <textarea rows="3"></textarea>
+        </div>
+
+        <div>
+            <label>Employee ID</label>
+            <input type="text" value="EMP001" readonly>
+        </div>
+
+        <div class="full">
+            <label>Skills</label>
+            <div class="inline">
+                <label><input type="checkbox"> Java</label>
+                <label><input type="checkbox"> Python</label>
+                <label><input type="checkbox"> HTML</label>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <input type="submit" value="Register">
+            <input type="reset" value="Clear">
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
