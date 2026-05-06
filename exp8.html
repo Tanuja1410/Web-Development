@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exp 8 – Table Tags</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    /* ── Student Identity Banner ── */
+    .student-identity-banner {
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #1976d2, #0d47a1);
+      color: white;
+      padding: 14px 22px;
+      border-radius: 10px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .student-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+    }
+    .student-meta {
+      font-size: 13px;
+      opacity: 0.85;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .meta-separator::before {
+      content: "•";
+    }
+
+    /* ── Tables ── */
+    h2 {
+      margin: 24px 0 10px;
+      color: #1976d2;
+    }
+    table {
+      border-collapse: collapse;
+      text-align: center;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    th {
+      text-align: center;
+      background: #1976d2;
+      color: white;
+      padding: 8px 12px;
+    }
+    td {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+    }
+    tr:nth-child(even) td {
+      background: #f2f6fc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Student Identity Banner -->
+  <div class="student-identity-banner">
+    <div class="student-info-left">
+      <h1 class="student-name">Viraj Potdar</h1>
+      <div class="student-meta">
+        <span>Roll No: 24</span>
+        <span class="meta-separator"></span>
+        <span>SY (CSE)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simple Table -->
+  <h2>Simple Table</h2>
+  <table border="1" width="30%">
+    <tr bgcolor="yellow">
+      <th>Roll No</th>
+      <th>Name</th>
+      <th>Div</th>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>Viraj Potdar</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <td>41</td>
+      <td>Prathamesh Nalawade</td>
+      <td>A</td>
+    </tr>
+  </table>
+
+  <!-- CSE Time Table -->
+  <h2>CSE Time Table</h2>
+  <table border="1" width="80%">
+    <tr>
+      <th>Day &amp; Time</th>
+      <th>9:00 – 10:00</th>
+      <th>10:00 – 11:00</th>
+      <th>11:00 – 11:15</th>
+      <th>11:15 – 12:15</th>
+      <th>12:15 – 1:15</th>
+      <th>1:15 – 2:00</th>
+      <th>2:00 – 3:00</th>
+      <th>3:00 – 4:00</th>
+    </tr>
+    <tr>
+      <th>Monday</th>
+      <td colspan="2">S1-DSL</td>
+      <td rowspan="6" style="background:#fff3e0;font-weight:600;">Break</td>
+      <td>AOOC</td>
+      <td>MDM-II</td>
+      <td rowspan="6" style="background:#fff3e0;font-weight:600;">Break</td>
+      <td>DS</td>
+      <td>–</td>
+    </tr>
+    <tr>
+      <th>Tuesday</th>
+      <td colspan="2">S1-TTL</td>
+      <td>AT</td>
+      <td>DS</td>
+      <td>WD</td>
+      <td>ENV</td>
+    </tr>
+    <tr>
+      <th>Wednesday</th>
+      <td colspan="2">S1-TTL</td>
+      <td>AOOC</td>
+      <td>MDM-II</td>
+      <td>DS</td>
+      <td>ENV</td>
+    </tr>
+    <tr>
+      <th>Thursday</th>
+      <td colspan="2">S1-WD</td>
+      <td>AT</td>
+      <td>AT</td>
+      <td>–</td>
+      <td>OEC-II</td>
+    </tr>
+    <tr>
+      <th>Friday</th>
+      <td colspan="2">S1-TPMS</td>
+      <td colspan="2">S1-AOOC</td>
+      <td>TPMS</td>
+      <td>OEC-II</td>
+    </tr>
+    <tr>
+      <th>Saturday</th>
+      <td colspan="2">LLC-PRP</td>
+      <td colspan="2">LLC-PRP</td>
+      <td colspan="2"></td>
+    </tr>
+  </table>
+
+</body>
+</html>

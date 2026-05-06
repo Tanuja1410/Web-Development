@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Experiment 13 - Student Grades (XSLT)</title>
+</head>
+<body>
+  <h1>Experiment 13 — Student Grades (XSLT)</h1>
+  <div id="output">Loading...</div>
+
+  <script>
+  async function loadAndTransform() {
+    const [xmlResp, xslResp] = await Promise.all([
+      fetch('exp13app.xml'),
+      fetch('exp13style.xsl')
+    ]);
+
+    const xmlText = await xmlResp.text();
+    const xslText = await xslResp.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(xmlText, 'application/xml');
+    const xsl = parser.parseFromString(xslText, 'application/xml');
+
+    const output = document.getElementById('output');
+
+    if (window.XSLTProcessor) {
+      const processor = new XSLTProcessor();
+      processor.importStylesheet(xsl);
+      const result = processor.transformToFragment(xml, document);
+      output.innerHTML = '';
+      output.appendChild(result);
+    } else {
+      try {
+        const transformed = xml.transformNode(xsl);
+        output.innerHTML = transformed;
+      } catch (e) {
+        output.textContent = 'XSLT not supported in this browser.';
+      }
+    }
+  }
+
+  loadAndTransform().catch(err => {
+    document.getElementById('output').textContent = 'Error: ' + err;
+  });
+  </script>
+</body>
+</html>

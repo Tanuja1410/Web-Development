@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exp 6 – HTML Frames</title>
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Frames layout using CSS to simulate frameset */
+    body { font-family: Arial, sans-serif; height: 100vh; display: flex; flex-direction: column; }
+
+    /* Top frame */
+    #topframe {
+      background: violet;
+      text-align: center;
+      padding: 16px;
+      height: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    #topframe h1 { font-size: 28px; }
+
+    /* Bottom row = menu + content */
+    #bottomrow {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Menu frame */
+    #menuframe {
+      width: 30%;
+      background: lightgray;
+      padding: 16px;
+      border-right: 1px solid #bbb;
+      flex-shrink: 0;
+    }
+    #menuframe h3 { margin-bottom: 10px; }
+    #menuframe ul { list-style: none; padding: 0; }
+    #menuframe ul li { margin: 8px 0; }
+    #menuframe ul li a {
+      text-decoration: none;
+      color: #1976d2;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    #menuframe ul li a:hover { text-decoration: underline; }
+
+    /* Content frame */
+    #contentframe {
+      flex: 1;
+      background: white;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    #contentframe h2 { margin-bottom: 10px; color: #333; }
+    #contentframe p  { line-height: 1.6; color: #555; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Frame -->
+  <div id="topframe">
+    <h1>Welcome to My Website</h1>
+  </div>
+
+  <!-- Bottom Row -->
+  <div id="bottomrow">
+
+    <!-- Menu Frame -->
+    <div id="menuframe">
+      <h3>Navigation Menu</h3>
+      <ul>
+        <li><a onclick="show('home')">Home</a></li>
+        <li><a onclick="show('about')">About</a></li>
+        <li><a onclick="show('contact')">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Content Frame -->
+    <div id="contentframe">
+      <h2>Home Page</h2>
+      <p>Welcome to the Home Page of My Website.</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Simulates frame target navigation
+    const pages = {
+      home: {
+        title: 'Home Page',
+        body:  'Welcome to the Home Page of My Website.'
+      },
+      about: {
+        title: 'About Us',
+        body:  'I am Tanuja Talekar. I am a student of Computer Science and Engineering at DYPCET, Kasba Bawada, Kolhapur. My hobbies are Poetry, Travelling.'
+      },
+      contact: {
+        title: 'Contact Us',
+        body:  'Email: talekartanuja14@gmail.com'
+      }
+    };
+
+    function show(page) {
+      const frame = document.getElementById('contentframe');
+      const data  = pages[page];
+      frame.innerHTML = `<h2>${data.title}</h2><p>${data.body}</p>`;
+    }
+  </script>
+</body>
+</html>

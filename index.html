@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Web Lab – Experiments Index</title>
+  <meta name="description" content="Index of all Web Lab experiments (Exp 1 to 13) with live previews.">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',Segoe UI,Arial,sans-serif;display:flex;height:100vh;background:#f0f2f5}
+
+    /* ── Sidebar ── */
+    nav{
+      width:290px;min-width:200px;background:#11111b;color:#cdd6f4;
+      display:flex;flex-direction:column;flex-shrink:0;
+    }
+    .nav-header{padding:22px 18px 16px;border-bottom:1px solid #1e1e2e}
+    .nav-header h1{font-size:16px;font-weight:700;color:#cba6f7}
+    .nav-header p{font-size:11.5px;color:#585b70;margin-top:5px;line-height:1.5}
+    .nav-list{padding:10px;overflow-y:auto;flex:1}
+
+    a.item{
+      display:flex;align-items:center;gap:10px;padding:9px 12px;margin:3px 0;
+      color:#cdd6f4;text-decoration:none;border-radius:8px;font-size:13px;
+      transition:background .15s,color .15s;
+    }
+    a.item:hover,a.item.active{background:#1e1e2e;color:#cba6f7}
+    a.item .badge{
+      font-size:10px;font-weight:600;background:#313244;color:#a6e3a1;
+      border-radius:4px;padding:2px 6px;min-width:40px;text-align:center;flex-shrink:0;
+    }
+
+    .nav-footer{padding:14px 18px;border-top:1px solid #1e1e2e}
+    .nav-footer small{color:#585b70;font-size:11px}
+
+    /* ── Preview pane ── */
+    main{flex:1;display:flex;flex-direction:column;min-width:0}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 16px;height:46px;background:#fff;border-bottom:1px solid #e0e0e0;flex-shrink:0;
+    }
+    .topbar .exp-title{font-size:13px;font-weight:600;color:#333}
+    .topbar a.newtab{
+      font-size:12px;color:#1976d2;text-decoration:none;font-weight:500;
+      padding:5px 12px;border:1px solid #1976d2;border-radius:6px;transition:all .15s;
+    }
+    .topbar a.newtab:hover{background:#1976d2;color:#fff}
+    iframe{width:100%;flex:1;border:0}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-header">
+      <h1>Web Lab</h1>
+      <p>Experiments 1 to 13. Click any item to preview below.</p>
+    </div>
+
+    <div class="nav-list" id="list">
+      <a class="item" href="#" data-src="exp1.html" data-label="Exp 1 – Introduction">
+        <span class="badge">Exp 1</span> Introduction
+      </a>
+      <a class="item active" href="#" data-src="exp2.html" data-label="Exp 2 – Basic Webpage">
+        <span class="badge">Exp 2</span> Basic Webpage
+      </a>
+      <a class="item" href="#" data-src="exp3.html" data-label="Exp 3 – Text Formatting">
+        <span class="badge">Exp 3</span> Text Formatting
+      </a>
+      <a class="item" href="#" data-src="exp4.html" data-label="Exp 4 – Lists">
+        <span class="badge">Exp 4</span> Lists
+      </a>
+      <a class="item" href="#" data-src="exp5.html" data-label="Exp 5 – Images">
+        <span class="badge">Exp 5</span> Images
+      </a>
+      <a class="item" href="#" data-src="exp6.html" data-label="Exp 6 – Frames">
+        <span class="badge">Exp 6</span> Frames
+      </a>
+      <a class="item" href="#" data-src="exp7.html" data-label="Exp 7 – Link Tag Demo">
+        <span class="badge">Exp 7</span> Link Tag Demo
+      </a>
+      <a class="item" href="#" data-src="exp8.html" data-label="Exp 8 – Table Tags">
+        <span class="badge">Exp 8</span> Table Tags
+      </a>
+      <a class="item" href="#" data-src="exp9.html" data-label="Exp 9 – Employee Registration">
+        <span class="badge">Exp 9</span> Employee Registration
+      </a>
+      <a class="item" href="#" data-src="exp10.html" data-label="Exp 10 – Resume">
+        <span class="badge">Exp 10</span> Resume
+      </a>
+      <a class="item" href="#" data-src="exp11.html" data-label="Exp 11 – XML / XSLT">
+        <span class="badge">Exp 11</span> XML / XSLT
+      </a>
+      <a class="item" href="#" data-src="exp12.html" data-label="Exp 12 – Bookstore (XSLT)">
+        <span class="badge">Exp 12</span> Bookstore (XSLT)
+      </a>
+      <a class="item" href="#" data-src="exp13.html" data-label="Exp 13 – Student Grades (XSLT)">
+        <span class="badge">Exp 13</span> Student Grades (XSLT)
+      </a>
+    </div>
+
+    <div class="nav-footer">
+      <small>Web-git · Exp 1 – 13 · Push to GitHub Pages to publish</small>
+    </div>
+  </nav>
+
+  <main>
+    <div class="topbar">
+      <span class="exp-title" id="expTitle">Exp 2 – Basic Webpage</span>
+      <a class="newtab" id="openBtn" href="exp2.html" target="_blank">Open in new tab ↗</a>
+    </div>
+    <iframe id="viewer" src="exp2.html" title="Experiment Viewer"></iframe>
+  </main>
+
+  <script>
+    const list     = document.getElementById('list');
+    const viewer   = document.getElementById('viewer');
+    const openBtn  = document.getElementById('openBtn');
+    const expTitle = document.getElementById('expTitle');
+
+    list.addEventListener('click', e => {
+      const a = e.target.closest('a[data-src]');
+      if (!a) return;
+      e.preventDefault();
+      const src   = a.getAttribute('data-src');
+      const label = a.getAttribute('data-label');
+      viewer.src        = src;
+      openBtn.href      = src;
+      expTitle.textContent = label;
+      list.querySelectorAll('a.item').forEach(el => el.classList.remove('active'));
+      a.classList.add('active');
+    });
+  </script>
+</body>
+</html>
+
+
