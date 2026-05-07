@@ -1,133 +1,99 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?xml-stylesheet type="text/xsl" href="#style1"?>
-
-<!-- XSLT MUST COME FIRST -->
-<xsl:stylesheet id="style1" version="1.0"
-xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
-<xsl:output method="html" indent="yes"/>
-
-<xsl:template match="/">
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Student Records Dashboard</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 11 - Student Records (XSLT)</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #eef2f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
         }
-
         .container {
-            width: 85%;
+            max-width: 900px;
             margin: auto;
-            margin-top: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-
         h1 {
             text-align: center;
-            color: #0d47a1;
+            color: #1a73e8;
+            margin-bottom: 30px;
         }
-
+        #output {
+            margin-top: 20px;
+        }
+        /* Styles from original XSL */
         .summary {
             display: flex;
             justify-content: space-between;
             margin: 20px 0;
+            gap: 15px;
         }
-
         .card {
-            background: #1976d2;
+            background: #1a73e8;
             color: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
-            width: 30%;
+            flex: 1;
             text-align: center;
+            transition: transform 0.2s;
         }
-
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            margin: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+        .card p {
+            margin: 10px 0 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 8px;
         }
-
         th {
-            background: #1976d2;
+            background: #1a73e8;
             color: white;
-            padding: 10px;
+            padding: 12px;
+            text-align: left;
         }
-
         td {
-            padding: 10px;
-            text-align: center;
+            padding: 12px;
+            border-bottom: 1px solid #eee;
         }
-
         tr:nth-child(even) {
-            background: #f2f2f2;
+            background: #f9fbff;
+        }
+        tr:hover {
+            background: #f1f5ff;
         }
     </style>
-
 </head>
-
 <body>
 
 <div class="container">
-
     <h1>Student Records Dashboard</h1>
-
-    <!-- Summary -->
-    <div class="summary">
-        <div class="card">
-            <h3>Total Students</h3>
-            <p><xsl:value-of select="count(college/student)"/></p>
-        </div>
-
-        <div class="card">
-            <h3>Status</h3>
-            <p>Active</p>
-        </div>
-
-        <div class="card">
-            <h3>System</h3>
-            <p>Working</p>
-        </div>
-    </div>
-
-    <!-- Table -->
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Branch</th>
-            <th>Year</th>
-            <th>Email</th>
-        </tr>
-
-        <xsl:for-each select="college/student">
-        <tr>
-            <td><xsl:value-of select="id"/></td>
-            <td><xsl:value-of select="name"/></td>
-            <td><xsl:value-of select="branch"/></td>
-            <td><xsl:value-of select="year"/></td>
-            <td><xsl:value-of select="email"/></td>
-        </tr>
-        </xsl:for-each>
-
-    </table>
-
+    <div id="output">Rendering data...</div>
 </div>
 
-</body>
-</html>
-
-</xsl:template>
-</xsl:stylesheet>
-
-
-<!-- ACTUAL DATA -->
+<script>
+// XML Data
+const xmlData = `
 <college>
-
     <student>
         <id>101</id>
         <name>Tanuja Talekar</name>
@@ -135,7 +101,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <year>3rd</year>
         <email>tanuja@example.com</email>
     </student>
-
     <student>
         <id>102</id>
         <name>Rahul Sharma</name>
@@ -143,7 +108,6 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <year>2nd</year>
         <email>rahul@example.com</email>
     </student>
-
     <student>
         <id>103</id>
         <name>Priya Patil</name>
@@ -151,5 +115,73 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <year>1st</year>
         <email>priya@example.com</email>
     </student>
-
 </college>
+`;
+
+// XSL Stylesheet
+const xslData = `
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+    <div class="summary">
+        <div class="card">
+            <h3>Total Students</h3>
+            <p><xsl:value-of select="count(college/student)"/></p>
+        </div>
+        <div class="card">
+            <h3>Status</h3>
+            <p>Active</p>
+        </div>
+        <div class="card">
+            <h3>System</h3>
+            <p>Ready</p>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Branch</th>
+                <th>Year</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <xsl:for-each select="college/student">
+            <tr>
+                <td><xsl:value-of select="id"/></td>
+                <td><xsl:value-of select="name"/></td>
+                <td><xsl:value-of select="branch"/></td>
+                <td><xsl:value-of select="year"/></td>
+                <td><xsl:value-of select="email"/></td>
+            </tr>
+            </xsl:for-each>
+        </tbody>
+    </table>
+</xsl:template>
+</xsl:stylesheet>
+`;
+
+function transform() {
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(xmlData, "application/xml");
+    const xsl = parser.parseFromString(xslData, "application/xml");
+
+    if (window.XSLTProcessor) {
+        const xsltProcessor = new XSLTProcessor();
+        xsltProcessor.importStylesheet(xsl);
+        const resultDocument = xsltProcessor.transformToFragment(xml, document);
+        const output = document.getElementById("output");
+        output.innerHTML = "";
+        output.appendChild(resultDocument);
+    } else {
+        document.getElementById("output").innerHTML = "Your browser does not support XSLT transformation.";
+    }
+}
+
+// Run transformation on load
+window.onload = transform;
+</script>
+
+</body>
+</html>

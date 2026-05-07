@@ -1,48 +1,178 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Experiment 12 - Bookstore (XSLT)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 12 - Bookstore (XSLT)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .book-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 20px;
+            background: #fff;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+        .book-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+        .book-author {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .book-info {
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .book-price {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.1rem;
+        }
+        .book-category {
+            font-size: 0.8rem;
+            background: #ecf0f1;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #34495e;
+        }
+    </style>
 </head>
 <body>
-  <h1>Experiment 12 — Bookstore (XSLT)</h1>
-  <div id="output">Loading...</div>
 
-  <script>
-  async function loadAndTransform() {
-    const [xmlResp, xslResp] = await Promise.all([
-      fetch('exp12books.xml'),
-      fetch('exp12style.xsl')
-    ]);
+<div class="container">
+    <h1>Digital Library Catalog</h1>
+    <div id="output">Loading Catalog...</div>
+</div>
 
-    const xmlText = await xmlResp.text();
-    const xslText = await xslResp.text();
+<script>
+// XML Data for Bookstore
+const xmlData = `
+<bookstore>
+    <book category="Programming">
+        <title>JavaScript: The Good Parts</title>
+        <author>Douglas Crockford</author>
+        <year>2008</year>
+        <price>29.99</price>
+    </book>
+    <book category="Programming">
+        <title>Clean Code</title>
+        <author>Robert C. Martin</author>
+        <year>2008</year>
+        <price>44.95</price>
+    </book>
+    <book category="Design">
+        <title>Don't Make Me Think</title>
+        <author>Steve Krug</author>
+        <year>2000</year>
+        <price>35.00</price>
+    </book>
+    <book category="Business">
+        <title>Zero to One</title>
+        <author>Peter Thiel</author>
+        <year>2014</year>
+        <price>27.00</price>
+    </book>
+    <book category="Science">
+        <title>A Brief History of Time</title>
+        <author>Stephen Hawking</author>
+        <year>1988</year>
+        <price>18.50</price>
+    </book>
+    <book category="Philosophy">
+        <title>Meditations</title>
+        <author>Marcus Aurelius</author>
+        <year>180</year>
+        <price>12.99</price>
+    </book>
+</bookstore>
+`;
+
+// XSL Stylesheet for Bookstore
+const xslData = `
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+    <div class="book-grid">
+        <xsl:for-each select="bookstore/book">
+        <div class="book-card">
+            <div class="book-title"><xsl:value-of select="title"/></div>
+            <div class="book-author">by <xsl:value-of select="author"/></div>
+            <div class="book-info">
+                <span class="book-price">$<xsl:value-of select="price"/></span>
+                <span class="book-category"><xsl:value-of select="@category"/></span>
+            </div>
+        </div>
+        </xsl:for-each>
+    </div>
+</xsl:template>
+</xsl:stylesheet>
+`;
+
+function transform() {
     const parser = new DOMParser();
-    const xml = parser.parseFromString(xmlText, 'application/xml');
-    const xsl = parser.parseFromString(xslText, 'application/xml');
+    try {
+        const xml = parser.parseFromString(xmlData, "application/xml");
+        const xsl = parser.parseFromString(xslData, "application/xml");
 
-    const output = document.getElementById('output');
-
-    if (window.XSLTProcessor) {
-      const processor = new XSLTProcessor();
-      processor.importStylesheet(xsl);
-      const result = processor.transformToFragment(xml, document);
-      output.innerHTML = '';
-      output.appendChild(result);
-    } else {
-      // Fallback for older IE
-      try {
-        const transformed = xml.transformNode(xsl);
-        output.innerHTML = transformed;
-      } catch (e) {
-        output.textContent = 'XSLT not supported in this browser.';
-      }
+        if (window.XSLTProcessor) {
+            const xsltProcessor = new XSLTProcessor();
+            xsltProcessor.importStylesheet(xsl);
+            const resultDocument = xsltProcessor.transformToFragment(xml, document);
+            const output = document.getElementById("output");
+            output.innerHTML = "";
+            output.appendChild(resultDocument);
+        } else {
+            document.getElementById("output").innerHTML = "Your browser does not support XSLT.";
+        }
+    } catch (e) {
+        document.getElementById("output").innerHTML = "Error during transformation: " + e.message;
     }
-  }
+}
 
-  loadAndTransform().catch(err => {
-    document.getElementById('output').textContent = 'Error: ' + err;
-  });
-  </script>
+window.onload = transform;
+</script>
+
 </body>
 </html>
+
